@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://daenrs131fioy"]
+
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_8rnfk"]
+[ext_resource type="PackedScene" uid="uid://bg5ekeqmg8r7d" path="res://neat/genome.tscn" id="2_lkt06"]
+[ext_resource type="PackedScene" uid="uid://bry1au8g0w4ac" path="res://organisms/swimmer.tscn" id="5_3m3vy"]
+[ext_resource type="Script" path="res://scenes/Camera3D.gd" id="6_mdcbe"]
+[ext_resource type="Script" path="res://scenes/NeatController.gd" id="6_muo1j"]
+[ext_resource type="PackedScene" uid="uid://e0abl2pirehk" path="res://NetworkDiagram.tscn" id="8_dyv7d"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1huik"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s76w6"]
+
+[sub_resource type="Sky" id="Sky_5vowm"]
+sky_material = SubResource("ProceduralSkyMaterial_s76w6")
+
+[sub_resource type="Environment" id="Environment_cw4jq"]
+background_mode = 2
+sky = SubResource("Sky_5vowm")
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_8rnfk")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 7, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
+transform = Transform3D(-8.74228e-08, 1, 0, -2, -4.37114e-08, 0, 0, 0, 2, -1.98401, 1.95707, -0.0126634)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="."]
+transform = Transform3D(-8.74228e-08, 1, 0, -2, -4.37114e-08, 0, 0, 0, 2, 2.01599, 1.95707, -0.0126634)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="."]
+transform = Transform3D(-8.74228e-08, 1, 0, -2, -4.37114e-08, 0, 0, 0, 2, 2.01599, 1.95707, -0.0126634)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="."]
+transform = Transform3D(-8.74228e-08, -4.37114e-08, -2, -2, 0, 8.74228e-08, 0, 1, -8.74228e-08, 0.0159861, 1.95707, -2.01266)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="Genome" parent="." instance=ExtResource("2_lkt06")]
+
+[node name="NeatController" type="Node" parent="."]
+script = ExtResource("6_muo1j")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("8_dyv7d")]
+
+[node name="body" parent="." instance=ExtResource("5_3m3vy")]
+transform = Transform3D(0.5, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 2.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2.77646, 5.89778)
+script = ExtResource("6_mdcbe")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cw4jq")

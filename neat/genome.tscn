@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://bg5ekeqmg8r7d"]
+
+[ext_resource type="Script" path="res://neat/scripts/Genome.gd" id="1_5ba5q"]
+[ext_resource type="PackedScene" uid="uid://c6fvucbg4a47p" path="res://neat/node_gene.tscn" id="2_g0b32"]
+[ext_resource type="PackedScene" uid="uid://7c0loe6bim7n" path="res://neat/gene.tscn" id="3_q2rlw"]
+[ext_resource type="Script" path="res://neat/scripts/NNode.gd" id="4_73hik"]
+[ext_resource type="Script" path="res://neat/scripts/ConnectionGene.gd" id="5_77gew"]
+
+[node name="Genome" type="Node"]
+script = ExtResource("1_5ba5q")
+
+[node name="NodeGene" parent="." instance=ExtResource("2_g0b32")]
+
+[node name="Gene" parent="." instance=ExtResource("3_q2rlw")]
+
+[node name="NNode" type="Node" parent="."]
+script = ExtResource("4_73hik")
+
+[node name="ConnectionGene" type="Node" parent="."]
+script = ExtResource("5_77gew")

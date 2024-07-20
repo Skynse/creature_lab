@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://bry1au8g0w4ac"]
+
+[ext_resource type="Script" path="res://organisms/swimmer.gd" id="1_cve1f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ucxp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pa0ue"]
+size = Vector3(1, 0.204163, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ppefw"]
+size = Vector3(1, 0.213623, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcd10"]
+albedo_color = Color(0.589772, 0.059334, 0.201111, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4wikv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rdur5"]
+radius = 4.53221
+
+[node name="Bird" type="Node3D"]
+script = ExtResource("1_cve1f")
+
+[node name="LeftWingJoint" type="HingeJoint3D" parent="."]
+transform = Transform3D(-0.992965, 1.03512e-08, 0.118404, 0, -1, 8.74228e-08, 0.118404, 8.68078e-08, 0.992965, -0.573069, 0.593745, -0.0128654)
+node_a = NodePath("../Body")
+node_b = NodePath("../LeftWing")
+angular_limit/enable = true
+angular_limit/upper = 1.22173
+
+[node name="RightWingJoint" type="HingeJoint3D" parent="."]
+transform = Transform3D(-0.999742, -1.98339e-09, -0.0226873, 0, -1, 8.74228e-08, -0.0226873, 8.74003e-08, 0.999742, 0.584075, 0.767246, -0.0099954)
+node_a = NodePath("../Body")
+node_b = NodePath("../RightWing")
+angular_limit/enable = true
+angular_limit/upper = 1.22173
+angular_limit/lower = -1.22173
+angular_limit/bias = 0.68
+angular_limit/softness = 11.79
+
+[node name="LeftWing" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19171, 0.459585, 0)
+
+[node name="flipper_left" type="MeshInstance3D" parent="LeftWing"]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_4ucxp")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftWing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00332642, 0)
+shape = SubResource("BoxShape3D_pa0ue")
+
+[node name="RightWing" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17569, 0.459585, 0)
+
+[node name="flipper_right" type="MeshInstance3D" parent="RightWing"]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_4ucxp")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightWing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000854492, 0)
+shape = SubResource("BoxShape3D_ppefw")
+
+[node name="Body" type="RigidBody3D" parent="."]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="body" type="MeshInstance3D" parent="Body"]
+mesh = SubResource("BoxMesh_4ucxp")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bcd10")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+shape = SubResource("BoxShape3D_4wikv")
+
+[node name="ray" type="RayCast3D" parent="."]
+target_position = Vector3(0, -10, 0)
+
+[node name="nose" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="nose"]
+shape = SubResource("SphereShape3D_rdur5")

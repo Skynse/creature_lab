@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6fvucbg4a47p"]
+
+[ext_resource type="Script" path="res://neat/scripts/NodeGene.gd" id="1_ehw61"]
+
+[node name="NodeGene" type="Node"]
+script = ExtResource("1_ehw61")

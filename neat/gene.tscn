@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7c0loe6bim7n"]
+
+[ext_resource type="Script" path="res://neat/scripts/Gene.gd" id="1_ed0ag"]
+
+[node name="Gene" type="Node"]
+script = ExtResource("1_ed0ag")

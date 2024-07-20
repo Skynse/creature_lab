@@ -1,0 +1,49 @@
+[gd_scene load_steps=11 format=3 uid="uid://daenrs131fioy"]
+
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_8rnfk"]
+[ext_resource type="PackedScene" uid="uid://bry1au8g0w4ac" path="res://organisms/swimmer.tscn" id="5_3m3vy"]
+[ext_resource type="Script" path="res://scenes/Camera3D.gd" id="6_mdcbe"]
+[ext_resource type="Script" path="res://scenes/NeatController.gd" id="6_muo1j"]
+[ext_resource type="Script" path="res://scenes/Population.gd" id="7_dwbsp"]
+[ext_resource type="PackedScene" uid="uid://e0abl2pirehk" path="res://NetworkDiagram.tscn" id="8_dyv7d"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1huik"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s76w6"]
+
+[sub_resource type="Sky" id="Sky_5vowm"]
+sky_material = SubResource("ProceduralSkyMaterial_s76w6")
+
+[sub_resource type="Environment" id="Environment_cw4jq"]
+background_mode = 2
+sky = SubResource("Sky_5vowm")
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_8rnfk")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." groups=["ground"]]
+transform = Transform3D(13.6, 0, 0, 0, 1, 0, 0, 0, 12.2, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="NeatController" type="Node" parent="."]
+script = ExtResource("6_muo1j")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("8_dyv7d")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
+script = ExtResource("6_mdcbe")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cw4jq")
+
+[node name="Population" type="Node" parent="."]
+script = ExtResource("7_dwbsp")
+swimmer_node = ExtResource("5_3m3vy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.621997, 0.116031, 0.774375, -0.780093, 0.177243, 0.600033, -0.0676301, -0.977303, 0.20076, 0, 5, 0)

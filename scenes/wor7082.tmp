@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=3 uid="uid://daenrs131fioy"]
+
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_8rnfk"]
+[ext_resource type="Script" path="res://neat/scripts/Genome.gd" id="1_yktwt"]
+[ext_resource type="PackedScene" uid="uid://c6fvucbg4a47p" path="res://neat/node_gene.tscn" id="2_dsu61"]
+[ext_resource type="PackedScene" uid="uid://7c0loe6bim7n" path="res://neat/gene.tscn" id="3_ulk6y"]
+[ext_resource type="Script" path="res://neat/scripts/NNode.gd" id="4_8ny6t"]
+[ext_resource type="Script" path="res://neat/scripts/ConnectionGene.gd" id="5_sl5eq"]
+[ext_resource type="Script" path="res://scenes/NeatController.gd" id="6_muo1j"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1huik"]
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_8rnfk")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="Genome" type="Node" parent="."]
+script = ExtResource("1_yktwt")
+
+[node name="NodeGene" parent="Genome" instance=ExtResource("2_dsu61")]
+
+[node name="Gene" parent="Genome" instance=ExtResource("3_ulk6y")]
+
+[node name="NNode" type="Node" parent="Genome"]
+script = ExtResource("4_8ny6t")
+
+[node name="ConnectionGene" type="Node" parent="Genome"]
+script = ExtResource("5_sl5eq")
+
+[node name="NeatController" type="Node" parent="."]
+script = ExtResource("6_muo1j")

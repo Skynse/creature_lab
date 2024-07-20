@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://daenrs131fioy"]
+
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_8rnfk"]
+[ext_resource type="Script" path="res://scenes/Camera3D.gd" id="6_mdcbe"]
+[ext_resource type="Script" path="res://scenes/NeatController.gd" id="6_muo1j"]
+[ext_resource type="PackedScene" uid="uid://bry1au8g0w4ac" path="res://organisms/flapper.tscn" id="6_y01dd"]
+[ext_resource type="Script" path="res://scenes/Population.gd" id="7_dwbsp"]
+[ext_resource type="PackedScene" uid="uid://e0abl2pirehk" path="res://NetworkDiagram.tscn" id="8_dyv7d"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1huik"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s76w6"]
+
+[sub_resource type="Sky" id="Sky_5vowm"]
+sky_material = SubResource("ProceduralSkyMaterial_s76w6")
+
+[sub_resource type="Environment" id="Environment_cw4jq"]
+background_mode = 2
+sky = SubResource("Sky_5vowm")
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_8rnfk")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." groups=["ground"]]
+transform = Transform3D(74.682, 0, 0, 0, 1, 0, 0, 0, 66.612, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="." groups=["ground"]]
+transform = Transform3D(74.682, 0, 0, 0, -4.37114e-08, -66.612, 0, 1, -2.9117e-06, 0, 2.82237e-06, -64.5684)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="." groups=["ground"]]
+transform = Transform3D(-74.682, -8.74228e-08, 2.71051e-20, -2.85388e-13, 4.37114e-08, -66.612, 6.52891e-06, -1, -2.9117e-06, -2.92675e-06, -2.83828e-06, 64.9322)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="." groups=["ground"]]
+transform = Transform3D(-3.26446e-06, 1, 0, 3.26446e-06, 3.55271e-15, -66.612, -74.682, -4.37114e-08, -2.9117e-06, -75.6526, 2.44815e-07, -5.60074)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="." groups=["ground"]]
+transform = Transform3D(-3.26446e-06, -1, -2.71051e-20, -3.26446e-06, 3.55271e-15, -66.612, 74.682, -4.37114e-08, -2.9117e-06, 74.138, 2.44816e-07, -5.60075)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="." groups=["ground"]]
+transform = Transform3D(-74.682, 8.74228e-08, 0, -6.52891e-06, -1, 0, 0, 0, 66.612, -2.94585, 20.1627, 0.2229)
+use_collision = true
+mesh = SubResource("PlaneMesh_1huik")
+
+[node name="NeatController" type="Node" parent="."]
+script = ExtResource("6_muo1j")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("8_dyv7d")]
+anchors_preset = 15
+offset_left = 739.0
+offset_top = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
+script = ExtResource("6_mdcbe")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cw4jq")
+
+[node name="Population" type="Node" parent="."]
+script = ExtResource("7_dwbsp")
+swimmer_node = ExtResource("6_y01dd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.621997, 0.116031, 0.774375, -0.780093, 0.177243, 0.600033, -0.0676301, -0.977303, 0.20076, 0, 5, 0)

@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy8m07x6skm1e"]
+
+[ext_resource type="Script" path="res://neat/scripts/Genome.gd" id="2_y6vwi"]
+
+[sub_resource type="GDScript" id="GDScript_s84vf"]
+script/source = "extends Node
+
+class_name Client
+
+# since this game is focused on organic virtual life, time spent alive will be a metric for fitness
+
+var fitness: float = 0
+@export var genome: Genome
+
+var time_alive: float = 0
+var time_start: float = 0
+var starting_health: float = 1600.0
+var distance_travelled: float = 0
+var uid: int = randi() % 1000
+@onready var root = get_parent()
+
+
+func _ready():
+	genome = Genome.new(uid, 1, 2)
+	#genome.num_inputs = 1
+	#genome.num_outputs = 2
+	time_start = Time.get_unix_time_from_system()
+	
+func calculate_fitness() -> float:
+	# Fitness = (v^Time) / ((v^Time)^2 + Distance 
+	var time_end = Time.get_unix_time_from_system()
+	var d_time = time_end - time_start
+	
+	return time_alive / pow(d_time, 2) + distance_travelled
+
+func set_id(id: int): uid = id
+func die():
+	pass
+"
+
+[node name="Client" type="Node"]
+script = SubResource("GDScript_s84vf")
+
+[node name="Genome" type="Node" parent="."]
+script = ExtResource("2_y6vwi")
