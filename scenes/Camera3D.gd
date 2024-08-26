@@ -5,11 +5,16 @@ extends Camera3D
 
 var is_panning = false
 var last_mouse_position = Vector2.ZERO
+var spectating = false
 
 func _ready():
 	pass
 
 func _process(delta):
+	if Input.is_action_just_pressed("toggle_spectate"):
+		spectating = !spectating
+		Input.mouse_mode = spectating
+		
 	handle_keyboard_input(delta)
 
 func _unhandled_input(event):
@@ -21,10 +26,11 @@ func _unhandled_input(event):
 			else:
 				is_panning = false
 	
-	elif event is InputEventMouseMotion and is_panning:
+	elif event is InputEventMouseMotion and (spectating or is_panning):
 		var mouse_delta = event.relative
 		rotate_y(mouse_delta.x * -pan_speed)
 		rotate_object_local(Vector3.RIGHT, mouse_delta.y * -pan_speed)
+		
 
 func handle_keyboard_input(delta):
 	var input_dir = Vector3.ZERO

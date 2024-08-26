@@ -5,7 +5,7 @@ extends Node
 @onready var control
 var population_size = 20
 var birds = []
-var file_path =  "res://saves/best_genome0.res"
+var file_path# =  "res://saves/best_genome0.res"
 var initial_genome: Genome
 func _ready():
 	control = get_parent().get_node("CanvasLayer/Control")
